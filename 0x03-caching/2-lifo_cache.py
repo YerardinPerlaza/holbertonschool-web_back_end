@@ -5,8 +5,6 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 class LIFOCache(BaseCaching):
     """Lifo caching system"""
-
-
     def __init__(self):
         """Initialize"""
         super().__init__()
@@ -14,21 +12,19 @@ class LIFOCache(BaseCaching):
 
     def put(self, key, item):
         """assign to the self-cache_data the item value for the key"""
-        if (key and item):
+        if key is None or item is None:
+            return
+
+        if len(self.cache_data) >= self.MAX_ITEMS:
+            discard = self.all_keys.pop()
+            print("DISCARD: {}".format(discard))
+            del self.cache_data[discard]
+
+            self.all_keys.append(key)
             self.cache_data[key] = item
-            if key in self.keys:
-                self.keys.remove(key)
-                self.keys.append(key)
-            else:
-                self.keys.append(key)
-            if len(self.keys) > self.MAX_ITEMS:
-                i = self.MAX_ITEMS - 1
-                out = self.keys.pop(i)
-                del self.cache_data[out]
-                print('DISCAR: {}'.format(out))
 
     def get(self, key):
         """return the value in self.cache_data to key"""
-        if key and key in self.keys:
-            return self.cache_data[key]
-        return None
+        if key is None or key not in self.cache_data:
+            return None
+        return self.cache_data[key]
