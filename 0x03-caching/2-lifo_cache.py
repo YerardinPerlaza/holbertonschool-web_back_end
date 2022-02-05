@@ -22,7 +22,7 @@ class LIFOCache(BaseCaching):
 
         self.keys.append(key)
         self.cache_data[key] = item
-            
+
     def get(self, key):
         """return the value in self.cache_data to key"""
         if key is None or key not in self.cache_data:
