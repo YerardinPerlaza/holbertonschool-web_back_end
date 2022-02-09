@@ -44,7 +44,7 @@ class Server:
         return page_list
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
-        """ Gets the results per page of the given page and returns a dictionary"""
+        """results per page of the given page and returns a dictionary"""
         hyper_dict = {}
         page_list = self.get_page(page, page_size)
         act_page_size = len(page_list)
