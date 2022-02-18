@@ -26,7 +26,8 @@ class BasicAuth(Auth):
         return authorization_header[6:]
 
     def decode_base64_authorization_header(self,
-                                           base64_authorization_header: str) -> str:
+                                           base64_authorization_header:
+                                           str)-> str:
         """
         decode_base64_authorization_header function
         """
@@ -41,9 +42,10 @@ class BasicAuth(Auth):
             return sample_string
         except Exception:
             return None
-    
+
         def extract_user_credentials(self,
-                                     decoded_base64_authorization_header: str) -> (str, str):
+                                     decoded_base64_authorization_header:
+                                     str)-> (str, str):
             """
             extract_user_credentials function
             """
@@ -59,9 +61,10 @@ class BasicAuth(Auth):
             return user, pswd
         # values = decoded_base64_authorization_header.split(":")
         # return values[0], values[1]
-    
-        def user_object_from_credentials(self, user_email: str, user_pwd: str
-        ) -> TypeVar('User'):
+
+        def user_object_from_credentials(self,
+                                         user_email: str, user_pwd:
+                                         str) -> TypeVar('User'):
             """
             user_object_from_credentials function
             """
@@ -79,7 +82,7 @@ class BasicAuth(Auth):
             if not valid_pass:
                 return None
             return user[0]
-        
+
         def current_user(self, request=None) -> TypeVar('User'):
             """
             current_user function
@@ -88,4 +91,5 @@ class BasicAuth(Auth):
             authorization = self.extract_base64_authorization_header(header)
             _decode = self.decode_base64_authorization_header(authorization)
             credential = self.extract_user_credentials(_decode)
-            return self.user_object_from_credentials(credential[0], credential[1])
+            return self.user_object_from_credentials(credential[0],
+                                                     credential[1])
